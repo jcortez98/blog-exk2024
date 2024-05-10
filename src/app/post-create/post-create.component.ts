@@ -1,15 +1,22 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { Post } from '../model/post';
+import { PostService } from '../service/post.service';
+import { FormsModule } from '@angular/forms';
+import { error } from 'console';
 
 @Component({
   selector: 'app-post-create',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './post-create.component.html',
   styleUrl: './post-create.component.css'
 })
 export class PostCreateComponent {
+  date = new Date();
+  pipe = new DatePipe('en-US');
+  post : Post = new Post();
   grayStar: string = "w-6 h-6 ms-1 text-gray-300 dark:text-gray-500";
   yellowStar: string = "w-6 h-6 ms-1 text-yellow-300";
   stars: any[] = [
@@ -21,12 +28,12 @@ export class PostCreateComponent {
   ];
   init = true;
 
-  constructor(private router: Router){}
+  constructor(private router: Router, private postService: PostService){}
 
   postStar(rating : number){
     this.init = false;
     this.replaceStars(rating);
-    console.log(rating);
+    this.post.raiting = rating;
   } 
 
   fillStars(): any[]{
@@ -40,10 +47,22 @@ export class PostCreateComponent {
       }else{
         star.class = this.grayStar;
       }
-    });
+    });    
   }
 
   getIndex(){
     this.router.navigate(['/indexPost'])
+  }
+
+  onSubmit(){
+    this.createPost();
+  }
+
+  createPost(){
+    this.postService.createPost(this.post).subscribe({
+      next: (datos) => {
+        this.getIndex();
+      }, error: (error: any) => {console.log(error)}
+    });
   }
 }

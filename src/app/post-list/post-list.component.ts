@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
-import { Post } from '../post';
-import { PostService } from '../post.service';
+import { Post } from '../model/post';
+import { PostService } from '../service/post.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -19,7 +19,6 @@ export class PostListComponent implements OnInit{
 
   ngOnInit(): void {
     this.getPost();
-    console.log(this.posts);
   }
 
   private getPost(){

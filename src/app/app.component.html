@@ -1,10 +1,20 @@
-<nav class="navbar" style="background-color: #ffffff;">
-    <div class="container-fluid">
-      <a class="navbar-brand position-relative top-100 start-50 translate-middle mt-5" href="#">
-        <img [src]="'assets/logo_kinal.png'" height="55" alt="logo-app" class="d-inline-block">
-      </a>
-    </div>
-  </nav>
-<div class="container">
-    <router-outlet></router-outlet>
+<div class="position-relative">
+  <div class="container">
+    <nav class="navbar">
+      <div class="container-fluid">
+        <a class="navbar-brand position-relative top-100 start-50 translate-middle mt-5" href="#">
+          <img [src]="'assets/image/logo_kinal.png'" height="55" alt="logo-app" class="d-inline-block">
+        </a>
+      </div>
+      <div class="position-absolute top-0 end-0 translate-middle-x-y mt-3">
+        <a class="navbar-brand position-relative top-100 start-50 translate-middle-y mr-3" (click)="changeTheme('light')" >
+          <img [src]="nameIcon" height="30" alt="logo-app" class="d-inline-block">
+        </a>
+      </div>
+    </nav>
+  </div>
+  <div class="container">
+      <router-outlet></router-outlet>
+  </div>
+  
 </div>
