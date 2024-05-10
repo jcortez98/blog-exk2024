@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { Post } from '../post';
 import { PostService } from '../post.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-post-list',
@@ -10,13 +11,15 @@ import { PostService } from '../post.service';
   styleUrl: './post-list.css',
 })
 export class PostListComponent implements OnInit{
-  posts : Post[];
+  posts: Post[];
   stars : any[];
+  dataRefresh: any;
 
-  constructor(private postService : PostService){}
+  constructor(private postService : PostService, private router: Router){}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.getPost();
+    console.log(this.posts);
   }
 
   private getPost(){
@@ -29,5 +32,9 @@ export class PostListComponent implements OnInit{
 
   getStars(raiting: number): number[] {
     return new Array(raiting).fill(0);
+  }
+
+  createPost(){
+    this.router.navigate(['createPost']);
   }
 }

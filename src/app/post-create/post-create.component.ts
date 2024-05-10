@@ -1,21 +1,49 @@
-import { Component, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-post-create',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './post-create.component.html',
   styleUrl: './post-create.component.css'
 })
 export class PostCreateComponent {
-  @Input() rating: number; // Valoración de 1 a 5
+  grayStar: string = "w-6 h-6 ms-1 text-gray-300 dark:text-gray-500";
+  yellowStar: string = "w-6 h-6 ms-1 text-yellow-300";
+  stars: any[] = [
+    {id:1 , class:this.grayStar },
+    {id:2 , class:this.grayStar },
+    {id:3 , class:this.grayStar },
+    {id:4 , class:this.grayStar },
+    {id:5 , class:this.grayStar },
+  ];
+  init = true;
 
-  get stars(): number[] {
-    const totalStars = 5;
-    const fullStars = Math.floor(this.rating);
-    const halfStars = Math.ceil(this.rating - fullStars);
-    const emptyStars = totalStars - fullStars - halfStars;
+  constructor(private router: Router){}
 
-    return [...Array(fullStars).fill(1), ...Array(halfStars).fill(0.5), ...Array(emptyStars).fill(0)];
+  postStar(rating : number){
+    this.init = false;
+    this.replaceStars(rating);
+    console.log(rating);
+  } 
+
+  fillStars(): any[]{
+    return this.stars;
+  }
+
+  replaceStars(rating : number){
+    this.stars.forEach(star =>{
+      if(star.id <= rating){
+        star.class = this.yellowStar;
+      }else{
+        star.class = this.grayStar;
+      }
+    });
+  }
+
+  getIndex(){
+    this.router.navigate(['/indexPost'])
   }
 }
