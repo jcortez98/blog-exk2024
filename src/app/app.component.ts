@@ -14,11 +14,11 @@ import { FormsModule } from '@angular/forms';
 })
 export class AppComponent {
   title = 'blog-exk2024';
-  nameIcon : string = 'assets/image/brightness.png';
+  nameIcon = false;
   theme: string = 'light';
   
-  changeTheme(theme:string)
-  {
+  changeTheme(theme:string){
+    this.nameIcon = !this.nameIcon;
     const body=document.body as HTMLElement
     body.setAttribute('data-bs-theme',theme)
   }
