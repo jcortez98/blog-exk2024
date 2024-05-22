@@ -1,10 +1,9 @@
 import { CommonModule, DatePipe } from '@angular/common';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { Post } from '../model/post';
-import { PostService } from '../service/post.service';
+import { Post } from '../../models/post';
+import { PostService } from '../../services/post.service';
 import { FormsModule } from '@angular/forms';
-import { error } from 'console';
 
 @Component({
   selector: 'app-post-create',
@@ -59,10 +58,6 @@ export class PostCreateComponent {
   }
 
   createPost(){
-    this.postService.createPost(this.post).subscribe({
-      next: (datos) => {
-        this.getIndex();
-      }, error: (error: any) => {console.log(error)}
-    });
+    this.postService.sendPost(this.post);
   }
 }

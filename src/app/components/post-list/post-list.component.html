@@ -1,7 +1,7 @@
 <div>
   <button type="button" class="btn btn-success mb-4" (click)="createPost()">Crear post</button>
 </div>
-@for (post of posts; track post.idPost) {
+@for (post of (posts||[]).slice().reverse(); track post.idPost) {
   <div class="card mt-2">
     <div class="card-header">
       {{post.titlePost}}
